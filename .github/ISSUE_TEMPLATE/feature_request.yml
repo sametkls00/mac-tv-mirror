@@ -1,0 +1,21 @@
+name: Feature / Özellik
+description: Suggest an improvement in English or Turkish.
+title: '[Feature] '
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Use case / Kullanım ihtiyacı
+      description: What problem would this solve? Hangi sorunu çözer?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed improvement / Önerilen geliştirme
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: Keep proposals compatible with local-only use, explicit capture consent, and the privacy model. Yerel kullanım, açık ekran izni ve gizlilik modelini koruyun.

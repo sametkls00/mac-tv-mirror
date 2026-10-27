@@ -1,0 +1,46 @@
+name: Bug / Hata
+description: Report a problem without private screen content or connection credentials.
+title: '[Bug] '
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        English or Turkish is welcome. Türkçe yazabilirsiniz.
+        For vulnerabilities, use SECURITY.md instead. Never post pairing codes, tokens, private IPs, or personal screenshots.
+        Güvenlik açıkları için SECURITY.md kullanın. Eşleştirme kodu, anahtar, özel IP ve kişisel ekran görüntüsü paylaşmayın.
+  - type: textarea
+    id: description
+    attributes:
+      label: Problem / Sorun
+      description: What happened, and what did you expect? Ne oldu, ne bekliyordunuz?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction / Tekrarlama adımları
+    validations:
+      required: true
+  - type: input
+    id: mac
+    attributes:
+      label: macOS, Chrome, Node.js versions / sürümleri
+    validations:
+      required: true
+  - type: input
+    id: tv
+    attributes:
+      label: TV model and firmware / TV modeli ve yazılımı
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Mode / Mod
+      options:
+        - WebRTC
+        - JPEG compatibility / uyumluluk
+        - Not sure / Bilmiyorum
+  - type: textarea
+    id: error
+    attributes:
+      label: Redacted error / Özel bilgilerden arındırılmış hata

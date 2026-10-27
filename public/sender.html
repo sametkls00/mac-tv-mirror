@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n>Mac → TV · Local Screen Sharing</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/i18n.js" defer></script>
+  <script src="/sender.js" defer></script>
+</head>
+<body>
+  <main class="sender">
+    <nav class="language-bar" aria-label="Language / Dil">
+      <label for="language" data-i18n>Language</label>
+      <select id="language"><option value="en">English</option><option value="tr">Türkçe</option></select>
+    </nav>
+    <p class="eyebrow" data-i18n>LOCAL NETWORK ONLY · NO CLOUD SERVICE</p>
+    <h1 data-i18n>Mirror your Mac to your TV</h1>
+    <section class="card">
+      <h2 data-i18n>1. Open this address in the TV browser</h2>
+      <p id="tv-url" class="address" data-i18n>Preparing address…</p>
+      <p data-i18n>Enter this pairing code when prompted on the TV:</p>
+      <p id="pair-code" class="pin">— — — — — —</p>
+      <p id="viewer-status" class="muted" data-i18n>Waiting for the TV.</p>
+    </section>
+    <section class="card">
+      <h2 data-i18n>2. Choose what to share</h2>
+      <p data-i18n>For the whole desktop, select Screen / Entire Screen in the browser dialog. You can also share a single window.</p>
+      <div class="actions">
+        <button id="start" data-i18n disabled>Share my screen</button>
+        <button id="stop" class="secondary" data-i18n disabled>Stop sharing</button>
+      </div>
+      <p id="status" role="status" aria-live="polite" data-i18n>Connecting to the local server…</p>
+      <p id="error" class="error" role="alert" hidden></p>
+      <video id="preview" autoplay muted playsinline hidden></video>
+    </section>
+    <p class="muted" data-i18n>Keep this page open. After selecting a screen, switch to the app you want to show. macOS may ask for screen recording and local network permissions for Chrome.</p>
+    <p class="muted" data-i18n>Video only — no audio. Protected content may appear black. If WebRTC is unavailable, compatibility mode sends roughly 3–5 frames per second.</p>
+    <p class="muted" data-i18n>HTTP is not encrypted. Use a trusted private network only. Do not expose this server to the internet.</p>
+  </main>
+</body>
+</html>

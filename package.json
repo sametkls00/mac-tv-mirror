@@ -1,0 +1,16 @@
+{
+  "name": "mac-tv-mirror",
+  "version": "0.1.0",
+  "description": "Local-network Mac screen sharing to a TV browser, with WebRTC and a JPEG fallback. English and Turkish UI.",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "keywords": ["macos", "screen-sharing", "smart-tv", "tizen", "webrtc", "local-network"],
+  "scripts": {
+    "start": "node server.mjs",
+    "check": "node --check server.mjs && node --check public/i18n.js && node --check public/sender.js && node --check public/receiver.js && node --check scripts/browser-smoke.mjs",
+    "test": "node --test",
+    "test:browser": "node scripts/browser-smoke.mjs"
+  },
+  "engines": { "node": ">=22" }
+}

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n>TV · Mac Screen</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/i18n.js" defer></script>
+  <script src="/receiver.js" defer></script>
+</head>
+<body class="receiver">
+  <nav class="language-bar" aria-label="Language / Dil">
+    <label for="language" data-i18n>Language</label>
+    <select id="language"><option value="en">English</option><option value="tr">Türkçe</option></select>
+  </nav>
+  <div id="screen">
+    <video id="display" autoplay muted playsinline hidden></video>
+    <img id="frames" alt="Mac screen / Mac ekranı" hidden>
+    <div id="waiting" class="waiting"><p id="waiting-text" data-i18n>Waiting to pair with the Mac.</p></div>
+  </div>
+  <section id="pair-panel" class="pair-panel">
+    <p class="eyebrow" data-i18n>MAC → TV · LOCAL CONNECTION</p>
+    <h1 data-i18n>Connect to your Mac</h1>
+    <p data-i18n>Enter the six-digit code shown on the Mac sharing page.</p>
+    <form id="pair-form">
+      <label for="pin" data-i18n>Pairing code</label>
+      <input id="pin" name="pin" type="text" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="off" required>
+      <button id="pair-button" type="submit" data-i18n>Connect</button>
+    </form>
+    <p id="pair-error" class="error" role="alert"></p>
+  </section>
+  <div id="toolbar" class="toolbar" hidden>
+    <span id="status" role="status" data-i18n>Connecting…</span>
+    <button id="compatibility" class="secondary" data-i18n>No picture? Try compatibility mode</button>
+    <button id="fullscreen" class="secondary" data-i18n>Fullscreen</button>
+  </div>
+</body>
+</html>

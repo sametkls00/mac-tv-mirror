@@ -1,0 +1,35 @@
+# OS / editors
+.DS_Store
+._*
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Dependencies / generated output
+node_modules/
+coverage/
+.nyc_output/
+dist/
+*.tgz
+*.zip
+
+# Runtime / local configuration / secrets
+*.log
+npm-debug.log*
+*.pid
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+local-config.*
+
+# Temporary browser profiles and test artifacts
+.browser-test-*/
+test-results/
+playwright-report/
+screenshots/

@@ -1,0 +1,37 @@
+:root { color-scheme: dark; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #101725; color: #eef3fc; }
+* { box-sizing: border-box; }
+body { margin: 0; line-height: 1.6; }
+[hidden] { display: none !important; }
+.sender { max-width: 850px; margin: 38px auto; padding: 0 24px 36px; }
+h1 { font-size: 32px; line-height: 1.25; }
+h2 { font-size: 21px; margin-top: 0; }
+.eyebrow { color: #91c9ff; font-size: 12px; letter-spacing: 2px; font-weight: 700; }
+.card { background: #1b2638; border: 1px solid #34445e; border-radius: 16px; padding: 24px; margin: 20px 0; }
+.address { font-size: 26px; color: #9cdeff; overflow-wrap: anywhere; user-select: all; }
+.pin { font-size: 42px; font-weight: 750; letter-spacing: 9px; margin: 10px 0; color: #fff; }
+.muted { color: #abb9d0; font-size: 14px; }
+.error { color: #ffb5b5; white-space: pre-line; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+button { background: #8dd8ff; color: #071724; border: 2px solid transparent; border-radius: 9px; padding: 12px 20px; font-size: 17px; font-weight: 650; cursor: pointer; }
+button.secondary { color: #eef3fc; background: #27374f; border-color: #526684; }
+button:disabled { opacity: .45; cursor: default; }
+button:focus, input:focus { outline: 4px solid #ffdc79; outline-offset: 4px; }
+select { border: 1px solid #6684a5; border-radius: 6px; background: #182439; color: #fff; padding: 8px 12px; font-size: 16px; }
+select:focus { outline: 4px solid #ffdc79; outline-offset: 4px; }
+.language-bar { display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin-bottom: 20px; }
+.language-bar label { margin: 0; }
+.receiver .language-bar { position: fixed; top: 12px; right: 2%; z-index: 3; opacity: .4; }
+.receiver .language-bar:hover, .receiver .language-bar:focus-within { opacity: 1; }
+#preview { display: block; width: 100%; max-height: 320px; background: #000; margin-top: 18px; border-radius: 10px; }
+.receiver { background: #000; overflow: hidden; }
+#screen { position: fixed; inset: 0; top: 0; right: 0; bottom: 0; left: 0; }
+#display, #frames { width: 100%; height: 100%; object-fit: contain; background: #000; }
+.waiting { position: absolute; top: 0; right: 0; bottom: 0; left: 0; display: flex; align-items: center; justify-content: center; padding: 8%; text-align: center; font-size: 26px; color: #b8cae6; }
+.pair-panel { position: relative; width: 660px; max-width: 88%; margin: 7vh auto; padding: 32px; border: 1px solid #526684; border-radius: 16px; background: #182439; font-size: 20px; }
+.pair-panel h1 { font-size: 36px; }
+label { display: block; margin-bottom: 12px; }
+input { width: 230px; margin: 0 18px 20px 0; padding: 12px; font-size: 30px; letter-spacing: 5px; color: #fff; background: #0c1422; border: 2px solid #6684a5; border-radius: 8px; }
+.toolbar { position: fixed; bottom: 16px; left: 2%; right: 2%; padding: 10px 14px; background: rgba(15, 23, 37, .88); border-radius: 10px; font-size: 16px; opacity: .3; transition: opacity .2s; }
+.toolbar:hover, .toolbar:focus-within { opacity: 1; }
+.toolbar button { margin: 4px 0 4px 12px; padding: 8px 12px; font-size: 15px; }
+@media (max-width: 600px) { .address { font-size: 21px; } h1 { font-size: 27px; } .card { padding: 18px; } .toolbar { opacity: .8; } }
