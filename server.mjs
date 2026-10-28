@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 
 const files = new Map();
-for (const name of ['sender.html', 'receiver.html', 'i18n.js', 'sender.js', 'receiver.js', 'style.css']) {
+for (const name of ['sender.html', 'receiver.html', 'i18n.js', 'quality.js', 'sender.js', 'receiver.js', 'style.css']) {
   files.set(name, readFileSync(new URL(`./public/${name}`, import.meta.url)));
 }
 
@@ -64,13 +64,14 @@ async function readJson(req) {
   }
 }
 
-export function createApplication({ lanAddress, now = Date.now, pin } = {}) {
+export function createApplication({ lanAddress, now = Date.now, pin, receiverPort, publicPorts } = {}) {
   if (!lanAddress) throw new Error('A local-network address is required.');
   if (pin !== undefined && !/^[0-9]{6}$/.test(pin)) throw new Error('The pairing code must contain six digits.');
   const hostToken = randomBytes(32).toString('hex');
   const pairCode = pin || String(randomInt(100000, 1000000));
   const allowedHosts = new Set(['localhost', '127.0.0.1', lanAddress]);
   const attempts = new Map();
+  const listenerRoles = new WeakMap();
   let receiver = null;
   let sharing = false;
   let generation = 0;
@@ -104,10 +105,17 @@ export function createApplication({ lanAddress, now = Date.now, pin } = {}) {
   }
 
   function requireHost(req) {
-    if (!isLoopback(req.socket.remoteAddress) || !sameSecret(bearer(req), hostToken)) {
+    if (!isSenderRequest(req) || !sameSecret(bearer(req), hostToken)) {
       throw new HttpError(403, 'This action is only available on the Mac sharing page.');
     }
     hostLastSeen = now();
+  }
+
+  function isSenderRequest(req) {
+    // Explicit roles are assigned only by server-side listener callbacks, never
+    // by HTTP headers. Docker uses separate published sender/receiver sockets.
+    if (listenerRoles.has(req)) return listenerRoles.get(req) === 'sender';
+    return isLoopback(req.socket.remoteAddress);
   }
 
   function requireReceiver(req, queryToken) {
@@ -118,7 +126,8 @@ export function createApplication({ lanAddress, now = Date.now, pin } = {}) {
     return receiver;
   }
 
-  async function handle(req, res) {
+  async function handle(req, res, listenerRole) {
+    if (listenerRole === 'sender' || listenerRole === 'receiver') listenerRoles.set(req, listenerRole);
     res.setHeader('Cache-Control', 'no-store, max-age=0');
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('X-Frame-Options', 'DENY');
@@ -129,7 +138,8 @@ export function createApplication({ lanAddress, now = Date.now, pin } = {}) {
       const authority = req.headers.host || '';
       const url = new URL(req.url, `http://${authority}`);
       const host = new URL(`http://${authority}`);
-      if (!allowedHosts.has(host.hostname) || Number(host.port || 80) !== req.socket.localPort) {
+      const expectedPort = publicPorts?.[listenerRoles.get(req)] || req.socket.localPort;
+      if (!allowedHosts.has(host.hostname) || Number(host.port || 80) !== expectedPort) {
         throw new HttpError(403, 'Server address not allowed.');
       }
       if (req.headers['sec-fetch-site'] === 'cross-site') {
@@ -139,7 +149,7 @@ export function createApplication({ lanAddress, now = Date.now, pin } = {}) {
         throw new HttpError(403, 'Request origin could not be verified.');
       }
       housekeeping();
-      const local = isLoopback(req.socket.remoteAddress);
+      const local = isSenderRequest(req);
       const path = url.pathname;
 
       if (req.method === 'GET' && path === '/api/health') {
@@ -150,7 +160,7 @@ export function createApplication({ lanAddress, now = Date.now, pin } = {}) {
         return json(res, 200, {
           token: hostToken,
           pin: pairCode,
-          tvUrl: `http://${lanAddress}:${req.socket.localPort}/`,
+          tvUrl: `http://${lanAddress}:${receiverPort || req.socket.localPort}/`,
         });
       }
       if (req.method === 'GET' && path === '/api/host') {
@@ -274,7 +284,8 @@ export function createApplication({ lanAddress, now = Date.now, pin } = {}) {
   return { handle, pairCode, close: () => { clearInterval(timer); stopSharing(); } };
 }
 
-function privateIPv4(address) {
+export function privateIPv4(address) {
+  if (typeof address !== 'string' || !/^\d{1,3}(\.\d{1,3}){3}$/.test(address)) return false;
   const parts = address.split('.').map(Number);
   if (parts.length !== 4 || parts.some((part) => !Number.isInteger(part) || part < 0 || part > 255)) return false;
   return parts[0] === 10 || (parts[0] === 172 && parts[1] >= 16 && parts[1] <= 31) || (parts[0] === 192 && parts[1] === 168);

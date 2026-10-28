@@ -1,5 +1,29 @@
 # Changelog / Değişiklikler
 
+## Unreleased / Henüz yayınlanmadı
+
+### English
+
+- One public port for Mac and TV with address-separated Docker mapping, plus double-click Mac start/stop launchers.
+- 60 FPS capture / encoder targets, live resolution/quality controls, measured transfer statistics, and FPS-preserving adaptive quality.
+- TV fit/fill/stretch and remote-friendly automatically hidden controls.
+- Optional Docker Compose with isolated sender/receiver ports and container access checks.
+- Optional captured-tab audio on WebRTC, with receiver-side enable / mute controls and explicit missing-audio guidance.
+- Movie / browser-tab and screen / presentation profiles; no microphone capture or installed audio driver.
+- Synthetic audio-energy, autoplay rejection, audio opt-out, fallback, and capture-cleanup browser checks.
+- JPEG fallback remains silent and is explicitly labeled unsuitable for films.
+
+### Türkçe
+
+- Adrese göre ayrılmış Docker eşlemesiyle Mac/TV için tek dış port ve Mac'te çift tıklanan başlat/durdur dosyaları.
+- 60 FPS yakalama / kodlayıcı hedefi, canlı çözünürlük/kalite ayarları, gerçek aktarım ölçümleri ve FPS hedefini koruyan uyarlama.
+- TV'de sığdır/doldur/ger ve kumandayla açılan otomatik gizli kontroller.
+- Ayrı gönderici/alıcı portları ve erişim testleriyle isteğe bağlı Docker Compose.
+- WebRTC'de isteğe bağlı sekme sesi; alıcıda sesi açma / susturma ve ses eksikse açık yönlendirme.
+- Film / tarayıcı sekmesi ve ekran / sunum profilleri; mikrofon yakalama veya ses sürücüsü kurulumu yok.
+- Yapay ses enerjisi, oynatma reddi, sesin kapatılması, uyumluluk modu ve yakalama temizliği testleri.
+- JPEG modu sessiz kalır ve film için uygun olmadığı açıkça belirtilir.
+
 ## 0.1.0 — Unreleased / Henüz yayınlanmadı
 
 ### English

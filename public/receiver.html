@@ -13,7 +13,7 @@
     <label for="language" data-i18n>Language</label>
     <select id="language"><option value="en">English</option><option value="tr">Türkçe</option></select>
   </nav>
-  <div id="screen">
+  <div id="screen" data-fit="contain">
     <video id="display" autoplay muted playsinline hidden></video>
     <img id="frames" alt="Mac screen / Mac ekranı" hidden>
     <div id="waiting" class="waiting"><p id="waiting-text" data-i18n>Waiting to pair with the Mac.</p></div>
@@ -31,8 +31,21 @@
   </section>
   <div id="toolbar" class="toolbar" hidden>
     <span id="status" role="status" data-i18n>Connecting…</span>
+    <button id="sound" class="secondary" data-i18n disabled>Enable sound</button>
     <button id="compatibility" class="secondary" data-i18n>No picture? Try compatibility mode</button>
     <button id="fullscreen" class="secondary" data-i18n>Fullscreen</button>
+    <label class="fit-control" for="fit"><span data-i18n>TV picture</span>
+      <select id="fit">
+        <option value="contain" data-i18n>Fit (keep everything)</option>
+        <option value="cover" data-i18n>Fill (crop edges)</option>
+        <option value="fill" data-i18n>Stretch (distorts)</option>
+      </select>
+    </label>
+    <label class="checkline toolbar-check"><input id="auto-hide" type="checkbox" checked><span data-i18n>Hide controls during playback</span></label>
+    <p id="fit-note" class="audio-status" data-i18n>Fit preserves proportions and may leave black bars.</p>
+    <p id="audio-status" class="audio-status" role="status" data-i18n>Waiting for an audio track.</p>
+    <p id="tv-stats" class="audio-status" role="status" data-i18n>Waiting for decoded-video statistics.</p>
   </div>
+  <p id="controls-hint" class="controls-hint" hidden data-i18n>Press a remote key or move the pointer to show controls.</p>
 </body>
 </html>

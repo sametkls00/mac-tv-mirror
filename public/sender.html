@@ -6,7 +6,7 @@
   <title data-i18n>Mac → TV · Local Screen Sharing</title>
   <link rel="stylesheet" href="/style.css">
   <script src="/i18n.js" defer></script>
-  <script src="/sender.js" defer></script>
+  <script src="/sender.js" type="module"></script>
 </head>
 <body>
   <main class="sender">
@@ -26,16 +26,63 @@
     <section class="card">
       <h2 data-i18n>2. Choose what to share</h2>
       <p data-i18n>For the whole desktop, select Screen / Entire Screen in the browser dialog. You can also share a single window.</p>
+      <div class="capture-options">
+        <label for="profile" data-i18n>Sharing profile</label>
+        <select id="profile">
+          <option value="movie" data-i18n>Movie / browser tab</option>
+          <option value="screen" data-i18n>Screen / presentation</option>
+        </select>
+        <label class="checkline" for="share-audio">
+          <input id="share-audio" type="checkbox" checked>
+          <span data-i18n>Include tab audio when available</span>
+        </label>
+      </div>
+      <fieldset id="quality-controls">
+        <legend data-i18n>Picture quality and performance</legend>
+        <div class="settings-grid">
+          <label><span data-i18n>Resolution limit</span>
+            <select id="resolution">
+              <option value="auto" data-i18n>Auto (up to 1080p)</option>
+              <option value="720">720p</option>
+              <option value="1080" selected>1080p</option>
+            </select>
+          </label>
+          <label><span data-i18n>Target frame rate</span>
+            <select id="fps"><option value="15">15 FPS</option><option value="24">24 FPS</option><option value="30">30 FPS</option><option value="60" selected>60 FPS</option></select>
+          </label>
+          <label><span data-i18n>Video quality</span>
+            <select id="quality"><option value="economy" data-i18n>Low data</option><option value="balanced" selected data-i18n>Balanced</option><option value="high" data-i18n>High quality</option></select>
+          </label>
+        </div>
+        <label class="checkline"><input id="adaptive" type="checkbox" checked><span data-i18n>Adapt quality while preserving the selected FPS target</span></label>
+        <button id="apply-quality" class="secondary" disabled data-i18n>Apply without stopping</button>
+        <p id="quality-status" class="muted" role="status" data-i18n>60 FPS is a target, not a guarantee. Resolution keeps the source aspect ratio.</p>
+      </fieldset>
+      <p class="muted" data-i18n>For movies, choose the Chrome tab playing the film and turn on Share tab audio in Chrome's picker. Keep the player and tab unmuted. Full-desktop audio is not guaranteed on macOS. No microphone is requested.</p>
       <div class="actions">
         <button id="start" data-i18n disabled>Share my screen</button>
         <button id="stop" class="secondary" data-i18n disabled>Stop sharing</button>
       </div>
       <p id="status" role="status" aria-live="polite" data-i18n>Connecting to the local server…</p>
+      <p id="audio-status" class="muted" role="status" data-i18n>No screen or audio is being captured.</p>
       <p id="error" class="error" role="alert" hidden></p>
       <video id="preview" autoplay muted playsinline hidden></video>
     </section>
+    <section class="card" aria-labelledby="stats-title">
+      <h2 id="stats-title" data-i18n>Live video statistics</h2>
+      <dl class="stats-grid">
+        <div><dt data-i18n>Selected target</dt><dd id="stats-target">—</dd></div>
+        <div><dt data-i18n>Capture source</dt><dd id="stats-capture">—</dd></div>
+        <div><dt data-i18n>Encoded / sent video</dt><dd id="stats-sent">—</dd></div>
+        <div><dt data-i18n>Video bitrate</dt><dd id="stats-bitrate">—</dd></div>
+        <div><dt data-i18n>Network RTT</dt><dd id="stats-rtt">—</dd></div>
+        <div><dt data-i18n>Packet loss</dt><dd id="stats-loss">—</dd></div>
+      </dl>
+      <p id="adaptation-status" class="muted" role="status" data-i18n>Waiting for a live connection.</p>
+      <p class="muted" data-i18n>Measured FPS is not the selected target or a TV refresh-rate guarantee. RTT is network round-trip time, not end-to-end movie delay. Missing browser statistics are shown as —.</p>
+    </section>
     <p class="muted" data-i18n>Keep this page open. After selecting a screen, switch to the app you want to show. macOS may ask for screen recording and local network permissions for Chrome.</p>
-    <p class="muted" data-i18n>Video only — no audio. Protected content may appear black. If WebRTC is unavailable, compatibility mode sends roughly 3–5 frames per second.</p>
+    <p class="muted" data-i18n>Audio requires a captured audio track, WebRTC support, and Enable sound on the TV. JPEG compatibility mode is silent at roughly 3–5 fps and is not intended for movies. Protected content may appear black.</p>
     <p class="muted" data-i18n>HTTP is not encrypted. Use a trusted private network only. Do not expose this server to the internet.</p>
   </main>
 </body>

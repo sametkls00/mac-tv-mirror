@@ -48,3 +48,25 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts --no-audit --no-fund
       - run: npm run test:browser
+
+  container:
+    name: Docker · isolated sender and receiver ports
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: docker build --tag mac-tv-mirror:ci .
+      - run: >-
+          docker run --detach --name mac-tv-mirror-ci
+          --read-only --cap-drop=ALL --security-opt no-new-privileges:true
+          --env TV_LAN_IP=192.168.50.20 --env SENDER_PORT=18765 --env RECEIVER_PORT=18766
+          --publish 127.0.0.1:18765:18765 --publish 127.0.0.1:18766:18766
+          mac-tv-mirror:ci
+      - run: npm run test:container
+      - if: always()
+        run: docker rm --force mac-tv-mirror-ci

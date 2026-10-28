@@ -14,6 +14,7 @@ Important known boundaries:
 - Public deployment, port forwarding, public tunnels, and use on shared untrusted Wi-Fi are unsupported.
 - Explicitly stop browser capture when finished. Server-side timeouts do not directly revoke an established peer-to-peer media channel.
 - Local capture permissions and the privacy of the chosen screen remain the user's responsibility.
+- In Docker mode, the dedicated sender listener is trusted only because the supplied Compose configuration publishes it on **127.0.0.1**. Never publish it on all interfaces, expose the container directly, or treat forwarded-IP headers as authorization. The separate TV listener denies sender operations even if it receives a valid sender token.
 
 ### Report a vulnerability privately
 
@@ -39,6 +40,7 @@ Bilinen önemli sınırlar:
 - Herkese açık sunucu, port yönlendirme, genel tünel ve güvenilmeyen ortak Wi-Fi desteklenmez.
 - İşin bitince tarayıcı yakalamasını kendin durdur. Sunucu zaman aşımı kurulmuş eşler arası medya kanalını doğrudan iptal etmez.
 - Yerel yakalama izinleri ve seçilen ekranın gizliliği kullanıcının sorumluluğundadır.
+- Docker modunda ayrılmış gönderici girişine, sağlanan Compose yapılandırması onu **127.0.0.1** üzerinde yayınladığı için güvenilir. Tüm arayüzlere açma, konteyneri doğrudan dışarıya sunma veya yönlendirilmiş IP başlıklarını yetki sayma. Ayrı TV girişi, geçerli gönderici anahtarı alsa bile gönderici işlemlerini reddeder.
 
 ### Güvenlik açığını özel olarak bildirme
 

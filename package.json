@@ -8,9 +8,10 @@
   "keywords": ["macos", "screen-sharing", "smart-tv", "tizen", "webrtc", "local-network"],
   "scripts": {
     "start": "node server.mjs",
-    "check": "node --check server.mjs && node --check public/i18n.js && node --check public/sender.js && node --check public/receiver.js && node --check scripts/browser-smoke.mjs",
+    "check": "node --check server.mjs && node --check docker-server.mjs && node --check public/i18n.js && node --check public/quality.js && node --check public/sender.js && node --check public/receiver.js && node --check scripts/browser-smoke.mjs && sh -n Start.command && sh -n Stop.command",
     "test": "node --test",
-    "test:browser": "node scripts/browser-smoke.mjs"
+    "test:browser": "node scripts/browser-smoke.mjs",
+    "test:container": "node scripts/container-smoke.mjs"
   },
   "engines": { "node": ">=22" }
 }

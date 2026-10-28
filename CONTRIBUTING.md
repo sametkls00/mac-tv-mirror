@@ -25,7 +25,7 @@ npm test
 npm run test:browser
 ```
 
-The browser test requires installed Chrome and a private LAN IPv4 address. It uses a separate temporary profile and synthetic canvas video. **Never remove the synthetic capture stub or add flags that auto-capture a contributor's real desktop.** Set **CHROME_PATH** if Chrome is installed in a nonstandard location.
+The browser test requires installed Chrome and a private LAN IPv4 address. It uses a separate temporary profile, synthetic canvas video, and a generated test tone with muted speaker output. **Never remove the synthetic capture stub, request a microphone, or add flags that auto-capture a contributor's real desktop.** Set **CHROME_PATH** if Chrome is installed in a nonstandard location.
 
 ### Pull request guidelines
 
@@ -62,7 +62,7 @@ npm test
 npm run test:browser
 ```
 
-Tarayıcı testi için kurulu Chrome ve özel yerel IPv4 adresi gerekir. Ayrı geçici profil ve yapay canvas görüntüsü kullanılır. **Yapay yakalama kodunu kaldırma; katkıcının gerçek masaüstünü otomatik yakalayan bayrak ekleme.** Chrome standart konumda değilse **CHROME_PATH** kullan.
+Tarayıcı testi için kurulu Chrome ve özel yerel IPv4 adresi gerekir. Ayrı geçici profil, yapay canvas görüntüsü ve hoparlör çıkışı susturulmuş üretilmiş test sesi kullanılır. **Yapay yakalama kodunu kaldırma, mikrofon isteme veya katkıcının gerçek masaüstünü otomatik yakalayan bayrak ekleme.** Chrome standart konumda değilse **CHROME_PATH** kullan.
 
 ### Pull request kuralları
 

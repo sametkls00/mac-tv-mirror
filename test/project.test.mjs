@@ -33,7 +33,7 @@ test('Repository metadata, license and lockfile stay consistent and dependency-f
   assert.deepEqual(Object.keys(metadata.devDependencies || {}), []);
   assert.deepEqual(Object.keys(lockfile.packages), ['']);
   assert.match(await read('LICENSE'), /MIT License/);
-  for (const path of ['README.md', 'README.tr.md', 'CONTRIBUTING.md', 'SECURITY.md', 'CODE_OF_CONDUCT.md', 'CHANGELOG.md', 'docs/PUBLISHING.md', '.github/workflows/ci.yml', '.gitignore']) {
+  for (const path of ['README.md', 'README.tr.md', 'CONTRIBUTING.md', 'SECURITY.md', 'CODE_OF_CONDUCT.md', 'CHANGELOG.md', 'docs/PUBLISHING.md', '.github/workflows/ci.yml', '.gitignore', 'Dockerfile', 'compose.yaml', '.dockerignore']) {
     assert.equal((await stat(join(root, path))).isFile(), true, path);
   }
 });
@@ -76,6 +76,8 @@ test('Language switching updates current messages without reloading or losing th
   assert.equal(context.document.documentElement.lang, 'tr');
   assert.equal(elements.heading.textContent, 'Mac ekranını TV’ye yansıt');
   assert.equal(ui.t('Incorrect pairing code.'), 'Eşleştirme kodu yanlış.');
+  assert.equal(ui.t('Enable sound'), 'Sesi aç');
+  assert.equal(ui.t('Movie / browser tab'), 'Film / tarayıcı sekmesi');
   ui.set('status', 'TV paired ✓');
   ui.set('tv-url', 'http://192.0.2.10:8765/');
   elements.language.value = 'en';
@@ -83,5 +85,6 @@ test('Language switching updates current messages without reloading or losing th
   assert.equal(elements.status.textContent, 'TV paired ✓');
   assert.equal(elements['tv-url'].textContent, 'http://192.0.2.10:8765/');
   assert.equal(elements.heading.textContent, 'Mirror your Mac to your TV');
+  assert.equal(ui.t('Enable sound'), 'Enable sound');
   assert.deepEqual([...storage.keys()], ['mac-tv-mirror-language']);
 });
